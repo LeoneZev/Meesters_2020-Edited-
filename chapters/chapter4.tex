@@ -1,0 +1,116 @@
+\label{chapter4}
+In order to form a collaboration, some form of benefit or cost reduction is required to convince potential players to form part of the coalition. Both receivers and carriers will act as to improve their personal situation. The attractiveness of a coalition therefore heavily relies on the estimation of benefits and the certainty that these benefits will be allocated in a fair manner. This chapter will focus on introducing a cost allocation tool into the \acrlong{matsim} (\acrshort{matsim}).
+
+\section{Receiver and carrier collaborations}
+The multi-agent implementation into \acrshort{matsim} provides a means of investigating the interactions between carrier and receiver agents. This allows a means of further investigating the collaboration between the included carrier and receiver agents in \acrshort{matsim}. 
+
+According to \citet{quintero2017using}, collaborating aims to decrease the overall delivery cost by improving the utilisation of resources used and making use of economies-of scale. Benefits are therefore realised when multiple deliveries are consolidated into fewer delivery trips and improved vehicle utilisation.  The work done by BEAN provides a means of including these group classifications into the simulation. In \acrshort{matsim} this classification is done by including a new class into the framework called the \texttt{COALITION} class BEAN. This class defines the receiver and carrier agents that form part of a certain coalition.\par
+
+When modelling a collaboration scenario it is necessary to separate the players into different groups. The first classifies the players as part of a coalition and those who do not wish to collaborate. Players included in this group are the players that form part of a coalition, be it the sub-coalition or the grand coalition. During the simulation, each receiver is tracked to determine if the receivers form part of the grand coalition or if the receivers are not willing to collaborate. The \textit{grandCoalitionMember} attribute executes this functionality. The attribute was introduced by BEAN and is set for all receivers at the start of a simulation run. Only players that form part of the grand coalition group will have the ability to join or leave coalitions for the remainder of the simulation run.\par
+
+ADD FIGURE OF DIFFERENT GROUP CLASSIFICATION
+
+As the grand coalition members have the ability to join and leave a coalition, it is required to keep track of each of the receivers' collaboration status. This is done by the \textit{collaborationStatus} attribute also introduced by BEAN. The attribute investigates three instances to classify the attribute as \texttt{true} or \texttt{false}. If the receiver is a member of the grand coalition and is currently collaborating, the receiver's status is classified as \texttt{true}. If the receiver is a member of the grand coalition but is not currently collaborating, the status is set to \texttt{false}. Finally, if the receiver is not a member of the grand coalition, the receiver's status is also classified as \texttt{false}.
+The included attributes are used to determine the list of receivers that form part of the receiver coalition members for a specific coalition. 
+
+%Additionally to the two new attributes, a new replan strategy is also implemented.
+
+%What additional tools need to be implemented? How do you model a collab between these agents.
+
+
+\textit{Many factors are still in the development phase - reordering policy, cost allocation methods, inclusion of the shipper agent
+As the main factor influencing potential players to join a collab was identified as the cost allocation, the expansion of this research domain will start with the inclusion of additional cost allocation methods.}
+
+
+
+\textit{Why is it important to have different cost allocation methods (one method does not suit all scenarios)}
+
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Including the cost allocation method into MATSim}
+
+The allocation of cost to the different collaborating partners has been identified the main factor to consider when considering collaboration as a solution to transportation problems. Alongside the fear of losing competitiveness, the estimation and allocation of benefits are seen as the main factor hindering potential partners from joining a collaboration initiative. Previous work done by BEAN has addressed the importance of reliable cost allocation methods. This dissertation builds on the previous work done by BEAN, by including an additional method into the \acrshort{matsim} infrastructure.
+
+
+%------------------------------------------------------------------------------------------------
+\subsection{The existing infrastructure in MATSim}
+Where will the cost allocation methods be included in MATSim?
+
+The benefits gained from collaborating is allocated to the list of receivers that form part of the grand coalition for the specific coalition instance meaning the collaborationStatus is set as \texttt{true}. Other partners, with a collaborationStatus \texttt{false} does not form part of the collaborating coalition member list and does not gain any benefits from the collaboration. The calculation of the benefits, depends on the cost allocation method selected. 
+
+There are currently two methods included in \acrshort{matsim} each of these methods are discussed below.
+\paragraph{Proportional cost allocation method:} This method allocates a portion of the coalition cost to each of the coalition members (of the specific coalition instance) based on their proportion of delivery volume in the total coalition delivery volume. The remainder of the receivers (not part of the coalition member list) receive a fixed delivery cost. The fixed cost is given as the rate per tonne delivered. The total delivery cost allocated to each of the coalition members are determined by equations XX to XX. The coalition cost is determined as the delivery cost of the carriers deducted by the total amount paid by non-collaborators in equation XX.
+Next the total delivery volume is calculated as the sum of the individual receiver order volumes in equation XX.
+T he proportional delivery cost charged to each receiver by a specific carrier is determined to accommodate for the instance where one receiver's delivery is executed by multiple carriers, in equation XX. Finally, the total delivery cost of each receiver is given as the sum of delivery costs charged from all carriers servicing the specific receiver.\par
+
+
+%---------------------------------------------------------------------------------------------
+\subsection{Selection of cost allocation method}
+Alternative cost allocations discussed in chapter 2 - there are various methods and each method has its advantages and disadvantages. Some methods are more popular than other in practise whereas others are praised for its performance in theoretical studies in research. 
+
+Factors to take into consideration when choosing a mCAM in a) theory and b) practise. Add review of methods most used in practise and research.
+
+Therefore when selecting a CAM it is important to take into consideration list???
+
+In this dissertation the following methods were considered (ADD list)
+Discuss the advantages, disadvantages and use cases of each.
+Add criteria to different factors to consider.
+Discuss the use case of this study (in general terms)
+What can we expect from these three different methods, how will they perform?
+Rank the methods based on allocated scores
+Identify the method to be included in this dissertation (others fall out of the scope.
+
+%-----------------------------------------------------------------------------------------------------
+\subsection{A deeper understanding of the NO 1 method}
+What did chapter 2 say
+
+Discuss the mathematics of the method
+
+Does MATSim accommodate the mathematical requirements of the selected method.
+
+How does MATSim execute certain functionalities in the simulation
+
+%------------------------------------------------------------------------------------------------------
+\subsection{MATSim cost allocation framework}
+
+Why is a certain framework required?
+
+What are the policies of MATSim- how can the model be included into the live MATSim version.
+
+What is the suggested framework used by BEAN? (discuss the diagram)
+
+Discuss each framework in detail 
+
+Provide a summary of what should be included in the cost allocation method framework
+%-------------------------------------------------------------------------------------------------------------------
+\subsection{The proposed framework}
+Following the requirements stipulated by MATSim and the framework used to implement the Proportional and XXX method, the following framework was constructed. The framework, shown in figure XX, describes XXX
+
+Discuss each of the attributes and features
+
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Simulation Setup}
+
+For the simulation a 100 iterations are introduced to accommodate for variability. Variability is the data points in the data set or statistical distribution that diverge from the average value  as well as the difference between the individual data points. The network introduced for the simulation is similar to that used by \citet{schroeder2012towards} and BEAN. A simple 10 by 10 check board or grid network is introduced in figure XX. The grid network represents an urban area. Each link on the network represents a uni-directional 1km road segment. Therefore, the direction of the different links can only be travelled in the directions indicated by the arrows. We introduce 50 receivers and one carrier agent on the provided network. This sample size is sufficient to demonstrate and understand the interactions between the different agent groups, whilst still being small enough to analyse and control the model results. The receiver agent locations are randomly scattered on the network, as shown in figure XX. 
+
+
+%Each of the receivers has a specified weekly demand that must be satisfied by the carrier. For the purpose of this scenario, all receivers have a weekly demand of 5 tonne and require a daily delivery. Therefore, the carrier must deliver 1 tonne to each of the receivers.\par
+
+Two types of freight vehicles are used in the simulation. This includes a heavy and light vehicle with a capacity of 14 and 3 tonnes, respectively. The fixed and variable costs of operating the two types of freight vehicles is summarised in table XX.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c}
+     Cost type & Heavy vehicle & Light vehicle\\
+     Fixed cost & & \\
+     Variable cost& & \\
+    \end{tabular}
+    \caption{Delivery cost}
+    \label{tab:my_label}
+\end{table}
+
+%Additional to the fixed and variable costs accumulated during the delivery trip, a delay cost of R6/min is charged  if the delivery is not completed before the delivery time window end time has expired. The unloading time at each of the receiver locations is set as 30 minutes.\par
+
+During the simulation, various receiver reordering decisions are changed that subsequently effect the carrier behaviour.

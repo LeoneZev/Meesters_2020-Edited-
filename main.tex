@@ -1,0 +1,90 @@
+\documentclass[12pt]{report}
+\usepackage{subfiles}
+\usepackage{blindtext}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[R]{CHAPTER \thechapter}
+
+\fancyfoot{}
+\fancyfoot[L]{\today}
+\fancyfoot[R]{PAGE \thepage}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue
+}
+
+
+\graphicspath{{images/}}
+\title{Cost allocation in a receiver driven collaboration: A practical approach.}
+
+\usepackage{natbib}
+\bibliographystyle{agsm}
+%\addbibresource{references}
+% in text with no brackets \cite
+% print citations between parenthesis \parancite
+
+\author{Leone Carolina Zevenbergen}
+\date{October 2019}
+
+\usepackage[acronym,nomain,nonumberlist]{glossaries}
+\makeglossaries
+
+
+\newacronym{abm}{ABM}{Agent Based Modelling}
+\newacronym{matsim}{MATSim}{Multi-Agent Transportation Simulation}
+\newacronym{gdp}{GDP}{Gross Domestic Profit}
+\newacronym{kms}{KMS}{Knowledge Management System}
+\newacronym{gps}{GPS}{Global Positioning System}
+\newacronym{eoq}{EOQ}{Economic Order Quantity}
+
+\begin{document}
+
+\input{chapters/titlepage.tex}
+\input{chapters/abstract.tex}
+
+\pagenumbering{roman}
+
+\tableofcontents
+\listoftables
+\listoffigures
+\glsaddall
+\printglossary[type=\acronymtype,title=Acronyms]
+
+
+\pagenumbering{arabic}
+\chapter{Introduction}
+\input{chapters/chapter1.tex}
+
+\chapter{Literature Review}
+\input{chapters/chapter2.tex}
+
+\chapter{Multi-agent collaborations in MATSim}
+\input{chapters/chapter3.tex}
+
+\chapter{Modelling cost allocation methods in a carrier-receiver collaboration}
+\input{chapters/chapter4.tex}
+
+\chapter{Evaluation of Model Results}
+\input{chapters/chapter5.tex}
+
+\chapter{Model Performance: A Case Study}
+\input{chapters/chapter6.tex}
+
+\chapter{Conclusion}
+\input{chapters/chapter7.tex}
+
+
+
+\bibliography{references}
+
+\end{document}
